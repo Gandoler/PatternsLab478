@@ -1,29 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Serilog
 
-namespace LAB4.Classes
+namespace LAB4.Classes;
+
+internal class Proxy : IImageServer
 {
-    internal class Proxy : IImageServer
+    readonly IImageServer _imageServer;
+
+    public Proxy(IImageServer imageServer)
     {
-        readonly IImageServer _imageServer;
+        _imageServer = imageServer;
+    }
 
-        public Proxy(IImageServer imageServer)
-        {
-            _imageServer = imageServer;
-        }
+    public Image GetImage(string path)
+    {
+        _imageServer.GetImage(path);
+    }
 
-        public Image GetImage(string path)
-        {
-            _imageServer.GetImage(path);
-        }
-
-        public void LogMove(Point vector)
-
-        {
-            throw new NotImplementedException();
-        }
+    public void LogMove(Point point)
+    {
+     Log.Information($"user Move window to {point.ToString()}")       
     }
 }
+
