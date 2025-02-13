@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LAB4.Classes.client
+namespace LAB4.Classes
 {
-    internal class Class1
+    internal interface IImageServer
     {
+        Image GetImage(string path);
+        void LogMove(Point vector);
 
 
     }
