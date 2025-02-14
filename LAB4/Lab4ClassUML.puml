@@ -1,0 +1,56 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+' Интерфейс формы
+interface Form
+
+' Интерфейс сервера изображений
+interface IImageServer {
+    + Size GetImageSize(string path)
+    + Image GetImage()
+    + void LogMove(Point vector)
+}
+
+' Класс формы для отображения изображений
+class PictureForm {
+    - readonly IImageServer _imageServer
+    - readonly string _fileName
+    - Image? image
+    - bool _isDragging
+    - Point _startPoint
+
+    + PictureForm(IImageServer imageServer, string filename)
+    - void PictureForm_MouseDown(object? sender, MouseEventArgs e)
+    - void PictureForm_MouseMove(object? sender, MouseEventArgs e)
+    - void PictureBox_MouseUp(object? sender, MouseEventArgs e)
+    - void PictureBox_DoubleClick(object? sender, EventArgs e)
+}
+
+' Реальный сервер изображений
+class Server {
+    - Image? _image
+    
+    + Image GetImage()
+    + Size GetImageSize(string path)
+    + void LogMove(Point vector)
+}
+
+' Прокси-сервер изображений
+class Proxy {
+    - readonly IImageServer _imageServer
+    - readonly string _logerPath
+
+    + Proxy(IImageServer imageServer, string logerPath)
+    + Image GetImage()
+    + Size GetImageSize(string path)
+    + void LogMove(Point location)
+}
+
+' Связи между классами
+PictureForm ..|> Form
+PictureForm --> IImageServer
+Server ..|> IImageServer
+Proxy ..|> IImageServer
+Proxy --> IImageServer
+
+@enduml

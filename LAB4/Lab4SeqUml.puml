@@ -1,0 +1,40 @@
+@startuml
+participant "Main" as Main
+participant "PictureForm" as Form
+participant "Proxy" as Proxy
+participant "Server" as Server
+participant "IImageServer" as IImageServer
+
+Main -> Form: new PictureForm(proxy, "test.jpg")
+Form -> Proxy: GetImageSize("test.jpg")
+Proxy -> Server: GetImageSize("test.jpg")
+Server -> Server: Загружает изображение
+Server -> Proxy: return Size
+Proxy -> Form: return Size
+Form -> Form: Устанавливает размер PictureBox
+Form -> Form: Назначает слушателей событий
+
+== Пользователь двигает картинку ==
+User -> Form: MouseDown(ЛКМ)
+Form -> Form: _isDragging = true
+Form -> Form: Запоминает начальную точку
+
+User -> Form: MouseMove()
+Form -> Form: Вычисляет новое положение
+Form -> Form: Обновляет Location PictureBox
+
+User -> Form: MouseUp()
+Form -> Form: _isDragging = false
+Form -> Proxy: LogMove(new Location)
+Proxy -> Server: LogMove(new Location)
+
+== Двойной клик по картинке ==
+User -> Form: DoubleClick()
+Form -> Proxy: GetImage()
+Proxy -> Server: GetImage()
+Server -> Server: Создает или возвращает изображение
+Server -> Proxy: return Image
+Proxy -> Form: return Image
+Form -> Form: Устанавливает изображение в PictureBox
+
+@enduml
