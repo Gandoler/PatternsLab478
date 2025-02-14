@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace LAB4.Classes
 {
-    internal interface IImageServer
+    public interface IImageServer
     {
+
+        Size GetImageSize(string path);
         Image GetImage(string path);
         void LogMove(Point vector);
 

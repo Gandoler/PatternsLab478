@@ -8,7 +8,7 @@ public static class Program
     static void Main()
     {
         Log.Logger = new LoggerConfiguration()
-           .WriteTo.Async(a => a.File(@"C:\\Users\\Gleb\\source\\repos\\LAB4\\LAB4\\Log\\Proxylog.log",
+           .WriteTo.Async(a => a.File(@"C:\Users\glkru\source\repos\Gandoler\LAB4WinFrom\LAB4\Log\Proxylog.log",
                rollingInterval: RollingInterval.Month))
            .CreateLogger();
 
