@@ -18,6 +18,7 @@ namespace LAB4
         Image? image;
         public PictureForm(IImageServer imageServer, string Filename)
         {
+            InitializeComponent();
             _fileName = Filename;
             _imageServer = imageServer;
 
@@ -27,8 +28,6 @@ namespace LAB4
             this.PictureBox.DoubleClick += PictureBox_DoubleClick;
             this.PictureBox.MouseUp += PictureBox_MouseUp;
 
-
-            InitializeComponent();
         }
 
         private void PictureBox_MouseUp(object? sender, MouseEventArgs e)
@@ -42,7 +41,7 @@ namespace LAB4
             image = _imageServer.GetImage(_fileName);
             this.PictureBox.Image = image;
         }
+      
 
-       
     }
 }
