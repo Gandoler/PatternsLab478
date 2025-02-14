@@ -10,7 +10,7 @@ namespace LAB4.Classes
     {
 
         Size GetImageSize(string path);
-        Image GetImage(string path);
+        Image GetImage();
         void LogMove(Point vector);
 
 

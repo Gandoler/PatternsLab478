@@ -19,10 +19,10 @@ internal class Proxy : IImageServer
         _imageServer = imageServer;
     }
 
-    public Image GetImage(string path)
+    public Image GetImage()
     {
-        Log.Information($"Пользователь запросил картинку по пути {path}");
-        return _imageServer.GetImage(path);
+        Log.Information($"Пользователь запросил картинку по пути");
+        return _imageServer.GetImage();
     }
 
     public Size GetImageSize(string path)
@@ -34,7 +34,8 @@ internal class Proxy : IImageServer
 
     public void LogMove(Point location)
     {
-        Log.Information($"Пользователь сдвинул PictureBox в {location.ToString}");    
+        Log.Information($"Пользователь сдвинул PictureBox в {location.X}, {location.Y}");  
+        _imageServer.LogMove(location);
     }
 }
 

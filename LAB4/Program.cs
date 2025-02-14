@@ -13,6 +13,6 @@ public static class Program
         Server server = new Server();
         Proxy proxy = new(server, @"C:\\Users\\glkru\\source\\repos\\Gandoler\\LAB4WinFrom\\LAB4\\Log\\myapp.log");
 
-        Application.Run(new PictureForm(proxy, @"C:\\Users\\glkru\\source\\repos\\Gandoler\\LAB4WinFrom\\LAB4\\130.jpg"));
+        Application.Run(new PictureForm(proxy, @"C:\\Users\\glkru\\source\\repos\\Gandoler\\LAB4WinFrom\\LAB4\\test.jpg"));
     }
 }
