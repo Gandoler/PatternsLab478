@@ -16,7 +16,7 @@ namespace ChessLogic
                     return Player.Black;
                 case Player.Black:
                     return Player.White;
-                default
+                default:
                     return Player.None;
             }
         }
