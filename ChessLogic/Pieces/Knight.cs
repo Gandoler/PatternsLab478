@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ChessLogic.Pieces
 {
-    public class Knignt: Piece
+    public class Knight: Piece
     {
         public override PieceType Type => PieceType.Pawn;
 
         public override Player Color { get; }
 
-        public Knignt(Player Color)
+        public Knight(Player Color)
         {
             this.Color = Color;
         }
