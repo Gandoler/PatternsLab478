@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChessLogic.Moves;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +18,28 @@ namespace ChessLogic.Pieces
             this.Color = Color;
         }
 
+        private static readonly Direction[] dirs = new Direction[]
+        {
+            Direction.NorthWest,
+            Direction.NorthEast,
+            Direction.SouthWest,
+            Direction.SouthEast,
+            Direction.North,
+            Direction.South,
+            Direction.East,
+            Direction.West
+        };
+
         public override Piece Copy()
         {
             Pawn copy = new Pawn(Color);
             copy.HasMoved = HasMoved;
             return copy;
+        }
+
+        public override IEnumerable<Move> GetMoves(Position from, Board board)
+        {
+            return MovePositionsInDirs(from, board, dirs).Select(to => new NormalMove(from, to));
         }
     }
 }

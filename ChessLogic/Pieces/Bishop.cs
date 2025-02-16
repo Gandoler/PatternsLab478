@@ -15,7 +15,10 @@ namespace ChessLogic.Pieces
 
         private static readonly Direction[] dirs = new Direction[]
         {
-            Direction.
+            Direction.NorthWest,
+            Direction.NorthEast,
+            Direction.SouthWest,
+            Direction.SouthEast
         };
 
 
@@ -33,7 +36,7 @@ namespace ChessLogic.Pieces
 
         public override IEnumerable<Move> GetMoves(Position from, Board board)
         {
-            throw new NotImplementedException();
+            return MovePositionsInDirs(from, board, dirs).Select(to => new NormalMove(from, to));
         }
     }
 }
