@@ -3,6 +3,7 @@ using ChessLogic.Pieces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -50,6 +51,7 @@ namespace ChessUI
 
         public static ImageSource GetImage(Piece piece)
         {
+            if (piece == null) return null;
             return GetImage(piece.Color, piece.Type);
 
         }

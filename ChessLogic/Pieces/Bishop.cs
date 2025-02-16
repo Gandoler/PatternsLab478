@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChessLogic.Moves;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,12 @@ namespace ChessLogic.Pieces
 
         public override Player Color { get; }
 
+        private static readonly Direction[] dirs = new Direction[]
+        {
+            Direction.
+        };
+
+
         public Bishop(Player Color)
         {
             this.Color = Color;
@@ -22,6 +29,11 @@ namespace ChessLogic.Pieces
             Pawn copy = new Pawn(Color);
             copy.HasMoved = HasMoved;
             return copy;
+        }
+
+        public override IEnumerable<Move> GetMoves(Position from, Board board)
+        {
+            throw new NotImplementedException();
         }
     }
 }
