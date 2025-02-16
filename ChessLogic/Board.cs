@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ChessLogic
 {
-    internal class Board
+    public class Board
     {
         private readonly Piece[,] pieces = new Piece[8, 8];
 
@@ -60,6 +60,18 @@ namespace ChessLogic
                 this[6, c] = new Pawn(Player.White);
 
             }
+        }
+
+
+        private static bool IsInside(Position pos)
+        {
+            return pos.Row >= 0 && pos.Row < 8 && pos.Column >= 0 && pos.Column < 8;
+        }
+
+
+        public bool isEmpty(Position pos)
+        {
+            return this[pos] == null;
         }
     }
 }
