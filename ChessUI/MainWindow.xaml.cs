@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ChessLogic.Moves;
 
 namespace ChessUI
 {
@@ -19,9 +20,11 @@ namespace ChessUI
     public partial class MainWindow : Window
     {
         private readonly Image[,] pieceImages = new Image[8, 8];
-
+        private readonly Rectangle[,] highlights = new Rectangle[8, 8];
+        private readonly Dictionary<Position, Move> moveCache = new();
+        
         private GameState gameState;
-
+        private Position selectedPos = null;
         public MainWindow()
         {
             InitializeComponent();
@@ -40,6 +43,11 @@ namespace ChessUI
                     Image image = new Image();
                     pieceImages[r, c] = image;
                     PieceGrid.Children.Add(image);
+
+
+                    Rectangle highlight = new Rectangle();
+                    highlight[r,c] = highlight;
+                    HiglightGrid.Children.Add(highlight);
                 }
             }
         }
@@ -56,5 +64,44 @@ namespace ChessUI
                 }
             }
         }
+
+
+        private void BoardGrid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            
+        }
+
+
+        private void CacheMoves(IEnumerable<Move> moves)
+        {
+            moveCache.Clear();
+
+            foreach (var VARIABLE in moves)
+            {
+                moveCache[moves.ToPos] = VARIABLE;
+            }
+        }
+
+        private void ShowHighlights()
+        {
+            Color color =Color.FromRgb(150,125,255,125);
+            foreach (var VARIABLE in moveCache.Keys)
+            {
+                highlights[VARIABLE.Row,VARIABLE.Column] = new SolidColorBrush(color);
+            }
+            
+        }
+        private void HideHighlights()
+        {
+            
+            foreach (var VARIABLE in moveCache.Keys)
+            {
+                highlights[VARIABLE.Row,VARIABLE.Column] = Brushes.Transparent;
+            }
+            
+        }
+        
+        
+        
     }
 }
