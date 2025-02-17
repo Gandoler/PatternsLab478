@@ -46,7 +46,7 @@ namespace ChessUI
 
 
                     Rectangle highlight = new Rectangle();
-                    highlight[r,c] = highlight;
+                    highlights[r,c] = highlight;
                     HiglightGrid.Children.Add(highlight);
                 }
             }
@@ -68,9 +68,37 @@ namespace ChessUI
 
         private void BoardGrid_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            
+            Point point = e.GetPosition(BoardGrid);
+            Position ops = ToSquarePosition(point);
+
+            if(selectedPos == null)
+            {
+                OnFromPositionSelected(pos);
+            }
+            else
+            {
+                ToPositionSelected(pos);
+            }
         }
 
+        private void ToPositionSelected(object pos)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnFromPositionSelected(object pos)
+        {
+            IEnumerable<Move> moves = gameState.
+        }
+
+        private void ToSquarePosition(Point point)
+        {
+            double squareSize = BoardGrid.ActualHeight / 8;
+            int row = (int)(point.Y / squareSize);
+            int col = (int)(point.X / squareSize);
+
+            return new Point(row, col);
+        }
 
         private void CacheMoves(IEnumerable<Move> moves)
         {
@@ -78,30 +106,30 @@ namespace ChessUI
 
             foreach (var VARIABLE in moves)
             {
-                moveCache[moves.ToPos] = VARIABLE;
+                moveCache[VARIABLE.ToPos] = VARIABLE;
             }
         }
 
-        private void ShowHighlights()
+        private void ShowHighlights() // включает подсветку
         {
-            Color color =Color.FromRgb(150,125,255,125);
-            foreach (var VARIABLE in moveCache.Keys)
+            Color color = Color.FromArgb(150, 125, 255, 125);
+            SolidColorBrush brush = new SolidColorBrush(color);
+
+            foreach (var pos in moveCache.Keys)
             {
-                highlights[VARIABLE.Row,VARIABLE.Column] = new SolidColorBrush(color);
+                highlights[pos.Row, pos.Column].Fill = new SolidColorBrush(color);
             }
-            
         }
-        private void HideHighlights()
+
+        private void HideHighlights()// выключает подсветку
         {
-            
-            foreach (var VARIABLE in moveCache.Keys)
+            foreach (var pos in moveCache.Keys)
             {
-                highlights[VARIABLE.Row,VARIABLE.Column] = Brushes.Transparent;
+                highlights[pos.Row, pos.Column].Fill = Brushes.Transparent;
             }
-            
         }
-        
-        
-        
+
+
+
     }
 }
