@@ -35,6 +35,7 @@ namespace ChessUI
             SetCursor(gameState.CurrentPlayer);
         }
 
+        // эта тема просто заполняет контейнерами для картинок щахмат
         private void InitializeBoard()
         {
             for(int r = 0; r < 8; r++)
@@ -61,7 +62,7 @@ namespace ChessUI
                 for (int c = 0; c < 8; c++)
                 {
                     Piece piece = board[r, c];
-                    pieceImages[r,c].Source = Images.GetImage(piece);
+                    pieceImages[r,c].Source = Images.Instance.GetImage(piece);
                 }
             }
         }
@@ -108,7 +109,7 @@ namespace ChessUI
 
         private void HandlePromotion(Position from, Position to)
         {
-            pieceImages[to.Row, to.Column].Source = Images.GetImage(gameState.CurrentPlayer, PieceType.Pawn);
+            pieceImages[to.Row, to.Column].Source = Images.Instance.GetImage(gameState.CurrentPlayer, PieceType.Pawn);
             pieceImages[from.Row, from.Column].Source = null;
 
             PromotionMenu promMenu = new PromotionMenu(gameState.CurrentPlayer);

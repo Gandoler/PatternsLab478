@@ -29,10 +29,10 @@ namespace ChessUI
 
 
 
-            QueenImg.Source = Images.GetImage(player, PieceType.Queen);
-            BishopImg.Source = Images.GetImage(player, PieceType.Bishop);
-            RookImg.Source = Images.GetImage(player, PieceType.Rook);
-            KnightImg.Source = Images.GetImage(player, PieceType.Knight);
+            QueenImg.Source = Images.Instance.GetImage(player, PieceType.Queen);
+            BishopImg.Source = Images.Instance.GetImage(player, PieceType.Bishop);
+            RookImg.Source = Images.Instance.GetImage(player, PieceType.Rook);
+            KnightImg.Source = Images.Instance.GetImage(player, PieceType.Knight);
         }
 
         private void QueenImg_MouseDown(object sender, MouseButtonEventArgs e)

@@ -13,45 +13,60 @@ using System.Windows.Media.Imaging;
 
 namespace ChessUI
 {
-    public static class Images
+    public sealed class Images
     {
-        private static readonly Dictionary<PieceType, ImageSource> WhiteSourses = new()
+        // Статическое поле для хранения единственного экземпляра класс а
+        private static readonly Images instance = new Images();
+        public static Images Instance => instance;
+        private static Dictionary<PieceType, ImageSource> WhiteSources { get; } = new();
+        private static Dictionary<PieceType, ImageSource> BlackSources { get; } = new();
+        private Images()
         {
-            {PieceType.Pawn, LoadImage("Assets/PawnW.png") },
-            {PieceType.Bishop, LoadImage("Assets/BishopW.png") },
-            {PieceType.Knight, LoadImage("Assets/KnightW.png") },
-            {PieceType.Rook, LoadImage("Assets/RookW.png") },
-            {PieceType.Queen, LoadImage("Assets/QueenW.png") },
-            {PieceType.King, LoadImage("Assets/KingW.png") }
-        };
+            // Инициализация словарей с изображениями белых и черных фигур
+            InitializeSources();
+            Debug.WriteLine("Sources Initialized");
+        }
+        private readonly ImageSource EmptyCellImage = new WriteableBitmap(1, 1, 96, 96, PixelFormats.Pbgra32, null);
 
-        private static readonly Dictionary<PieceType, ImageSource> BlackSourses = new()
-        {
-            {PieceType.Pawn, LoadImage("Assets/PawnB.png") },
-            {PieceType.Bishop, LoadImage("Assets/BishopB.png") },
-            {PieceType.Knight, LoadImage("Assets/KnightB.png") },
-            {PieceType.Rook, LoadImage("Assets/RookB.png") },
-            {PieceType.Queen, LoadImage("Assets/QueenB.png") },
-            {PieceType.King, LoadImage("Assets/KingB.png") }
-        };
-        public static ImageSource LoadImage(string filePath)
+        // подгрузочка в словарики
+                private void InitializeSources()
+                {
+                    WhiteSources[PieceType.Pawn] = LoadImage("Assets/PawnW.png");
+                    WhiteSources[PieceType.Bishop] = LoadImage("Assets/BishopW.png");
+                    WhiteSources[PieceType.Knight] = LoadImage("Assets/KnightW.png");
+                    WhiteSources[PieceType.Rook] = LoadImage("Assets/RookW.png");
+                    WhiteSources[PieceType.Queen] = LoadImage("Assets/QueenW.png");
+                    WhiteSources[PieceType.King] = LoadImage("Assets/KingW.png");
+
+                    BlackSources[PieceType.Pawn] = LoadImage("Assets/PawnB.png");
+                    BlackSources[PieceType.Bishop] = LoadImage("Assets/BishopB.png");
+                    BlackSources[PieceType.Knight] = LoadImage("Assets/KnightB.png");
+                    BlackSources[PieceType.Rook] = LoadImage("Assets/RookB.png");
+                    BlackSources[PieceType.Queen] = LoadImage("Assets/QueenB.png");
+                    BlackSources[PieceType.King] = LoadImage("Assets/KingB.png");
+                }
+
+      
+        // скрытый загрузчик
+        private ImageSource LoadImage(string filePath)
         {
             return new BitmapImage(new Uri(filePath, UriKind.Relative));
         }
 
-        public static ImageSource GetImage(Player color, PieceType type)
+        // получить картинки по цвету и типу фигуры
+        public ImageSource GetImage(Player color, PieceType type)
         {
             return color switch
             {
-                Player.White => WhiteSourses[type],
-                Player.Black => BlackSourses[type],
-
+                Player.White => WhiteSources[type],
+                Player.Black => BlackSources[type],
+                _ => EmptyCellImage
             };
         }
-
-        public static ImageSource GetImage(Piece piece)
+        // получить изображение по фигуре
+        public  ImageSource GetImage(Piece piece)
         {
-            if (piece == null) return null;
+            if (piece == null) return EmptyCellImage;
             return GetImage(piece.Color, piece.Type);
 
         }

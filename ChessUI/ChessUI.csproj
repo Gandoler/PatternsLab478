@@ -32,6 +32,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Code\Model\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Assets\BishopB.png" />
     <Resource Include="Assets\BishopW.png" />
     <Resource Include="Assets\Board.png" />
@@ -48,10 +52,6 @@
     <Resource Include="Assets\QueenW.png" />
     <Resource Include="Assets\RookB.png" />
     <Resource Include="Assets\RookW.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Code\Model\" />
   </ItemGroup>
 
 </Project>
