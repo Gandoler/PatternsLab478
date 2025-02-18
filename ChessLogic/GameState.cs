@@ -11,18 +11,18 @@ namespace ChessLogic
     public class GameState
     {
         public Board Board { get; set; }
-        public Player currentPalyer { get; private set; }
-
+        public Player CurrentPlayer { get; private set; }
+        public Result Result { get; private set; } = null;
         public GameState(Player player, Board board)
         {
-            currentPalyer = player;
+            CurrentPlayer = player;
             Board = board;
         }
 
 
         public IEnumerable<Move> LegalMovesForPiece(Position pos)
         {
-            if (Board.isEmpty(pos) || Board[pos].Color != currentPalyer)
+            if (Board.isEmpty(pos) || Board[pos].Color != CurrentPlayer)
             {
                 return Enumerable.Empty<Move>();
             }
@@ -35,9 +35,39 @@ namespace ChessLogic
         public void MakeMove(Move move)
         {
             move.Execute(Board);
-            currentPalyer = currentPalyer.Opponent();
+            CurrentPlayer = CurrentPlayer.Opponent();
+            CheckForGameOver();
         }
 
+        public IEnumerable<Move> AllLegalMovesFor(Player player)
+        {
+            IEnumerable<Move> moveCandidates = Board.PiecePositionsFor(player).SelectMany(pos =>
+            {
+                Piece piece = Board[pos];
+                return piece.GetMoves(pos, Board);
+            });
 
+            return moveCandidates.Where(move => move.IsLegal(Board));
+        }
+
+        private void CheckForGameOver()
+        {
+            if (!AllLegalMovesFor(CurrentPlayer).Any())
+            {
+                if (Board.IsInCheck(CurrentPlayer))
+                {
+                    Result = Result.Win(CurrentPlayer.Opponent());
+                }
+                else
+                {
+                    Result = Result.Draw(EndReason.Stalemate);
+                }
+            }
+        }
+
+        public bool isGameOver()
+        {
+            return Result != null;
+        }
     }
 }

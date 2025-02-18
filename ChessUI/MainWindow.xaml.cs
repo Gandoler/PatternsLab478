@@ -32,7 +32,7 @@ namespace ChessUI
 
             gameState = new GameState(Player.White, Board.initial());
             DrawBoard(gameState.Board);
-            SetCursor(gameState.currentPalyer);
+            SetCursor(gameState.CurrentPlayer);
         }
 
         private void InitializeBoard()
@@ -98,7 +98,7 @@ namespace ChessUI
         {
            gameState.MakeMove(move);
             DrawBoard(gameState.Board);
-            SetCursor(gameState.currentPalyer);
+            SetCursor(gameState.CurrentPlayer);
         }
 
         private void OnFromPositionSelected(Position pos)
