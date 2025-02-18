@@ -74,7 +74,7 @@ namespace ChessLogic.Pieces
 
         public override Piece Copy()
         {
-            Pawn copy = new Pawn(Color);
+            King copy = new King(Color);
             copy.HasMoved = HasMoved;
             return copy;
         }

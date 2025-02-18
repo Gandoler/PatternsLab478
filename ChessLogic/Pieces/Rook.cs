@@ -20,7 +20,7 @@ namespace ChessLogic.Pieces
 
         public override Piece Copy()
         {
-            Pawn copy = new Pawn(Color);
+            Rook copy = new Rook(Color);
             copy.HasMoved = HasMoved;
             return copy;
         }
