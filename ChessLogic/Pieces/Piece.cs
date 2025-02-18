@@ -40,5 +40,12 @@ namespace ChessLogic.Pieces
         {
             return directions.SelectMany(dir => MovePositionsInDir(from, board, dir));
         }
+
+        public virtual bool CanCaptureOpponentKing(Position from, Board board)
+        {
+            return GetMoves(from, board)
+                .Select(move => board[move.ToPos])
+                .Any(piece => piece?.Type == PieceType.King);
+        }
     }
 }

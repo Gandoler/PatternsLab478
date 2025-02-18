@@ -32,6 +32,7 @@ namespace ChessUI
 
             gameState = new GameState(Player.White, Board.initial());
             DrawBoard(gameState.Board);
+            SetCursor(gameState.currentPalyer);
         }
 
         private void InitializeBoard()
@@ -97,6 +98,7 @@ namespace ChessUI
         {
            gameState.MakeMove(move);
             DrawBoard(gameState.Board);
+            SetCursor(gameState.currentPalyer);
         }
 
         private void OnFromPositionSelected(Position pos)
@@ -151,6 +153,16 @@ namespace ChessUI
         }
 
 
-
+        private void SetCursor(Player player)
+        {
+            if (player == Player.White)
+            {
+                Cursor = ChessCursors.WhiteCursor;
+            }
+            else
+            {
+                Cursor = ChessCursors.BlackCursor;
+            }
+        }
     }
 }

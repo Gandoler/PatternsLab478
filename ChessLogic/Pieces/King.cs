@@ -64,6 +64,13 @@ namespace ChessLogic.Pieces
             }
         }
 
+        public override bool CanCaptureOpponentKing(Position from, Board board)
+        {
+            return MovePositions(from, board)
+                .Select(to => board[to])
+                .Any(piece => piece?.Type == PieceType.King);
+        }
+
 
     }
 }
