@@ -50,30 +50,30 @@ namespace ChessLogic
 
         private void AddStartPieses()
         {
-            this[0, 0] = new Rook(Player.Black);
-            this[0, 1] = new Knight(Player.Black);
-            this[0, 2] = new Bishop(Player.Black);
-            this[0, 3] = new Queen(Player.Black);
-            this[0, 4] = new King(Player.Black);
-            this[0, 5] = new Bishop(Player.Black);
-            this[0, 6] = new Knight(Player.Black);
-            this[0, 7] = new Rook(Player.Black);
+            this[0, 0] = PieceFactory.CreatePiece(PieceType.Rook, Player.Black);
+            this[0, 1] = PieceFactory.CreatePiece(PieceType.Knight, Player.Black);
+            this[0, 2] = PieceFactory.CreatePiece(PieceType.Bishop, Player.Black);
+            this[0, 3] = PieceFactory.CreatePiece(PieceType.Queen, Player.Black);
+            this[0, 4] = PieceFactory.CreatePiece(PieceType.King, Player.Black);
+            this[0, 5] = PieceFactory.CreatePiece(PieceType.Bishop, Player.Black);
+            this[0, 6] = PieceFactory.CreatePiece(PieceType.Knight, Player.Black);
+            this[0, 7] = PieceFactory.CreatePiece(PieceType.Rook, Player.Black);
 
+            // Белые фигуры
+            this[7, 0] = PieceFactory.CreatePiece(PieceType.Rook, Player.White);
+            this[7, 1] = PieceFactory.CreatePiece(PieceType.Knight, Player.White);
+            this[7, 2] = PieceFactory.CreatePiece(PieceType.Bishop, Player.White);
+            this[7, 3] = PieceFactory.CreatePiece(PieceType.Queen, Player.White);
+            this[7, 4] = PieceFactory.CreatePiece(PieceType.King, Player.White);
+            this[7, 5] = PieceFactory.CreatePiece(PieceType.Bishop, Player.White);
+            this[7, 6] = PieceFactory.CreatePiece(PieceType.Knight, Player.White);
+            this[7, 7] = PieceFactory.CreatePiece(PieceType.Rook, Player.White);
 
-            this[7, 0] = new Rook(Player.White);
-            this[7, 1] = new Knight(Player.White);
-            this[7, 2] = new Bishop(Player.White);
-            this[7, 3] = new Queen(Player.White);
-            this[7, 4] = new King(Player.White);
-            this[7, 5] = new Bishop(Player.White);
-            this[7, 6] = new Knight(Player.White);
-            this[7, 7] = new Rook(Player.White);
-
+            // Пешки
             for (int c = 0; c < 8; c++)
             {
-                this[1, c] = new Pawn(Player.Black);
-                this[6, c] = new Pawn(Player.White);
-
+                this[1, c] = PieceFactory.CreatePiece(PieceType.Pawn, Player.Black);
+                this[6, c] = PieceFactory.CreatePiece(PieceType.Pawn, Player.White);
             }
         }
 
