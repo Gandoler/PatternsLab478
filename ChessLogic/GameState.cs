@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ChessLogic.Moves;
+using ChessLogic.Pieces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,5 +18,25 @@ namespace ChessLogic
             currentPalyer = player;
             Board = board;
         }
+
+
+        public IEnumerable<Move> LegalMovesForPiece(Position pos)
+        {
+            if (Board.isEmpty(pos) || Board[pos].Color != currentPalyer)
+            {
+                return Enumerable.Empty<Move>();
+            }
+
+            Piece piece = Board[pos];
+            return piece.GetMoves(pos, Board);
+        }
+
+        public void MakeMove(Move move)
+        {
+            move.Execute(Board);
+            currentPalyer = currentPalyer.Opponent();
+        }
+
+
     }
 }

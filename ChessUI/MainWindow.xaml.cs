@@ -69,7 +69,7 @@ namespace ChessUI
         private void BoardGrid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Point point = e.GetPosition(BoardGrid);
-            Position ops = ToSquarePosition(point);
+            Position pos = ToSquarePosition(point);
 
             if(selectedPos == null)
             {
@@ -77,27 +77,48 @@ namespace ChessUI
             }
             else
             {
-                ToPositionSelected(pos);
+                OnToPositionSelected(pos);
             }
         }
 
-        private void ToPositionSelected(object pos)
+        private void OnToPositionSelected(Position pos)
         {
-            throw new NotImplementedException();
+            selectedPos = null;
+            
+            HideHighlights();
+
+            if(moveCache.TryGetValue(pos, out Move move))
+                {
+                HandleMove(move);
+            }
         }
 
-        private void OnFromPositionSelected(object pos)
+        private void HandleMove(Move move)
         {
-            IEnumerable<Move> moves = gameState.
+           gameState.MakeMove(move);
+            DrawBoard(gameState.Board);
         }
 
-        private void ToSquarePosition(Point point)
+        private void OnFromPositionSelected(Position pos)
+        {
+            IEnumerable<Move> moves = gameState.LegalMovesForPiece(pos);
+
+            if (moves.Any())
+            {
+                selectedPos = pos;
+                CacheMoves(moves);  
+                ShowHighlights();
+            }
+
+        }
+
+        private Position ToSquarePosition(Point point)
         {
             double squareSize = BoardGrid.ActualHeight / 8;
             int row = (int)(point.Y / squareSize);
             int col = (int)(point.X / squareSize);
 
-            return new Point(row, col);
+            return new Position(row, col);
         }
 
         private void CacheMoves(IEnumerable<Move> moves)

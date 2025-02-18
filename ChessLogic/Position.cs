@@ -11,7 +11,7 @@ namespace ChessLogic
         public int Row { get; }
         public int Column { get; }
 
-        Position(int row, int column)
+        public Position(int row, int column)
         {
             Row = row;
             Column = column;

@@ -13,7 +13,7 @@ namespace ChessLogic.Pieces
 
         public override Player Color { get; }
 
-        private static readonly Direction forward;
+        private  readonly Direction forward;
 
         public Pawn(Player Color)
         {
@@ -31,7 +31,7 @@ namespace ChessLogic.Pieces
         public override Piece Copy()
         {
             Pawn copy = new Pawn(Color);
-            copy.HasMoved=HasMoved;
+            copy.HasMoved = HasMoved;
             return copy;
         }
 
@@ -44,16 +44,47 @@ namespace ChessLogic.Pieces
 
         private bool CanCaptureAt(Position pos, Board board)
         {
-            if(!Board.IsInside(pos)|| board.isEmpty(pos)){
+            if (!Board.IsInside(pos) || board.isEmpty(pos))
+            {
                 return false;
             }
 
-            return board[pos].Color != Color;    
+            return board[pos].Color != Color;
         }
 
         private IEnumerable<Move> ForwardMoves(Position from, Board board)
         {
+            Position oneMovePos = from + forward;
 
+            if (CanMoveTo(oneMovePos, board))
+            {
+                yield return new NormalMove(from, oneMovePos);
+
+                Position twoMovesPos = oneMovePos + forward;
+
+                if (!HasMoved && CanMoveTo(twoMovesPos, board))
+                {
+                    yield return new NormalMove(from, twoMovesPos);
+                }
+            }
+        }
+
+        private IEnumerable<Move> DiagonalMoves(Position from, Board board)
+        {
+            foreach (Direction dir in new Direction[] { Direction.West, Direction.East })
+            {
+                Position to = from + forward + dir;
+
+                if (CanCaptureAt(to, board))
+                {
+                    yield return new NormalMove(from, to);
+                }
+            }
+        }
+
+        public override IEnumerable<Move> GetMoves(Position from, Board board)
+        {
+            return ForwardMoves(from, board).Concat(DiagonalMoves(from, board));
         }
     }
 }
