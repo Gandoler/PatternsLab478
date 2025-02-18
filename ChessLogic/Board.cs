@@ -143,7 +143,7 @@ namespace ChessLogic
             return counting;
 
         }
-
+        #region Check For Insuficient Material Situation
         public bool InsufficientMaterial()
         {
             Counting counting = CountPieces();
@@ -152,11 +152,12 @@ namespace ChessLogic
                 IsKingKnightVKing(counting) || IsKingBishopVKingBishop(counting);
         }
 
+        
         private static bool IsKingVKing(Counting counting)
         {
             return counting.TotalCount == 2;
         }
-
+        
         private static bool IsKingBishopVKing(Counting counting)
         {
             return counting.TotalCount == 3 && (counting.White(PieceType.Bishop) == 1 || counting.Black(PieceType.Bishop) == 1);
@@ -183,7 +184,7 @@ namespace ChessLogic
 
             return wBishopPos.SquareColor() == bBishopPos.SquareColor();
         }
-
+        #endregion
         private Position FindPiece(Player color, PieceType type)
         {
             return PiecePositionsFor(color).First(pos => this[pos].Type == type);
