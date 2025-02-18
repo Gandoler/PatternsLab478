@@ -39,13 +39,15 @@ namespace ChessLogic.Moves
 
 
 
-        public override void Execute(Board board)
+        public override bool Execute(Board board)
         {
             var kingMove = new NormalMove(FromPos, ToPos);
             kingMove.Execute(board);
 
             var rookMove = new NormalMove(rookFromPos, rookToPos);
             rookMove.Execute(board);
+
+            return false;
         }
 
         public override bool IsLegal(Board board)
