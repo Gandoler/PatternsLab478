@@ -20,17 +20,19 @@ namespace ChessUI
         public static Images Instance => instance;
         private static Dictionary<PieceType, ImageSource> WhiteSources { get; } = new();
         private static Dictionary<PieceType, ImageSource> BlackSources { get; } = new();
-        private Images()
+        private readonly ImageSource EmptyCellImage = new WriteableBitmap(1, 1, 96, 96, PixelFormats.Pbgra32, null);
+        
+        static  Images() 
         {
             // Инициализация словарей с изображениями белых и черных фигур
-            InitializeSources();
-            Debug.WriteLine("Sources Initialized");
+            Instance.InitializeSources();
         }
-        private readonly ImageSource EmptyCellImage = new WriteableBitmap(1, 1, 96, 96, PixelFormats.Pbgra32, null);
 
         // подгрузочка в словарики
                 private void InitializeSources()
                 {
+                    WhiteSources.Clear();
+                    BlackSources.Clear();
                     WhiteSources[PieceType.Pawn] = LoadImage("Assets/PawnW.png");
                     WhiteSources[PieceType.Bishop] = LoadImage("Assets/BishopW.png");
                     WhiteSources[PieceType.Knight] = LoadImage("Assets/KnightW.png");
